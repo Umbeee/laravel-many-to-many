@@ -8,6 +8,7 @@ use App\Models\Admin\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Admin\Category;
+use App\Models\Admin\Technology;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -35,7 +36,9 @@ class PostController extends Controller
 
         $categories = Category::All();
 
-        return view('admin.posts.create', compact('categories'));
+        $technologies = Technology::All();
+
+        return view('admin.posts.create', compact('categories', 'technologies'));
     }
 
     /**
@@ -61,6 +64,8 @@ class PostController extends Controller
         //     ]
         // );
 
+        // dd($request);
+
         $form_data = $request->validated();
 
         $form_data = $request->All();
@@ -75,9 +80,12 @@ class PostController extends Controller
             $form_data['cover_image'] = $img;
         }
 
-        $newPost = new Post();
-        $newPost->fill($form_data);
-        $newPost->save();
+        $newPost = Post::create($form_data);
+
+        if ($request->has('technologies')) {
+
+            $newPost->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.posts.index');
     }

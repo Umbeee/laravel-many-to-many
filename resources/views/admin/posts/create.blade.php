@@ -27,7 +27,6 @@
             <label for="post-categories" class="form-label">Categories</label>
             <select class="form-select form-select-lg @error ('category_id') is-invalid @enderror" name="category_id" id="post-categories">
 
-
                 <option value="">Scegli una categoria</option>
                 @foreach ( $categories as $elem )
 
@@ -42,6 +41,19 @@
                 </div>
                 @enderror
             </div>
+        </div>
+
+        <div class="mb-3 form-group">
+
+            @foreach ($technologies as $elem)
+            <div class="form-check">
+                <input class="form-check-input" name="technologies[]" type="checkbox" value="{{ $elem->id }}" id="technology-checkbox-{{ $elem->id }}">
+
+                <label class="form-check-label" for="technology-checkbox-{{ $elem->id }}">
+                    {{ $elem->name }}
+                </label>
+            </div>
+            @endforeach
         </div>
 
         <button type="submit" class="btn btn-primary">invia</button>

@@ -22,7 +22,7 @@
     </div>
 
     <div class="my-3">
-        Linguaggi usati per il progetto:
+        Linguaggio usati per il progetto:
 
 
         @foreach( $post->technologies as $elem )
