@@ -59,6 +59,27 @@
             </div>
         </div>
 
+        <div class="mb-3 form-group">
+
+            @foreach ($technologies as $elem)
+            <div class="form-check">
+
+                @if( $errors->any() )
+
+                <input class="form-check-input" name="technologies[]" type="checkbox" value="{{ $elem->id }}" id="technology-checkbox-{{ $elem->id }}" {{ in_array( $elem->id, old('technologies', []) ) ? 'checked' : '' }}>
+                @else
+
+                <input class="form-check-input" name="technologies[]" type="checkbox" value="{{ $elem->id }}" id="technology-checkbox-{{ $elem->id }}" {{ ($post->technologies->contains($elem)) ? 'checked' : '' }}>
+
+                @endif
+
+                <label class="form-check-label" for="technology-checkbox-{{ $elem->id }}">
+                    {{ $elem->name }}
+                </label>
+            </div>
+            @endforeach
+        </div>
+
         <button type="submit" class="btn btn-primary">invia</button>
     </form>
 </div>
